@@ -61,72 +61,6 @@ Le système implémente plusieurs couches de sécurité:
 
 ---
 
-##  Architecture - Séparation des Responsabilités
-
-### `config.php` - Configuration
-- Contient TOUTES les constantes modifiables
-- Centralisé et facile à maintenir
-- **Avantage**: Changer un paramètre affecte toute l'application
-
-### `functions.php` - Logique métier
-- Fonctions réutilisables et testables
-- Chaque fonction a un rôle unique
-- **Avantage**: Facile à déboguer, tester, réutiliser
-
-### `header.php` - En-tête HTML
-- Contient la structure HTML de base
-- Import du CSS externe
-- **Avantage**: Partagé entre plusieurs pages
-
-### `index.php` - Page principale
-- Appelle les fonctions utilitaires
-- Gère l'affichage
-- Code propre et lisible
-
-### `style.css` - Styles
-- Externalisé pour maintenabilité
-- Organisations par sections
-- Variables CSS pour facile personnalisation
-
----
-
-##  Fonctionnalités Principales
-
-### Les 5 Fonctions Essentielles
-
-**1. `processFileUpload()`** - Traite un upload complet  
-- Valide + enregistre le fichier
-- Retourne: `['success' => bool, 'message' => string]`
-- Utilisée dans `index.php` pour traiter les formulaires
-
-**2. `validateUploadedFile()`** - Vérifie 5 critères
-- Erreur d'upload PHP
-- Taille du fichier (< 5 MB)
-- Extension (PDF autorisé)
-- Type MIME (protection contre spoofing)
-- Retourne les erreurs détaillées
-
-**3. `saveUploadedFile()`** - Enregistre le fichier
-- Génère un nom sécurisé avec `uniqid()`
-- Déplace le fichier dans `/uploads/`
-- Définit les permissions (0644)
-
-**4. `generateSecureFilename()`** - Crée un nom unique
-- Format: `upload_[timestamp]_[nom_nettoyé].[ext]`
-- Empêche les collisions et les injections de chemin
-
-**5. `isAllowedMimeType()`** - Détecte le vrai type
-- Utilise `finfo_file()` pour lire le contenu réel
-- Prévient les attaques (ex: virus.exe renommé en virus.pdf)
-
-**Autres fonctions**: `isAllowedExtension()`, `isAllowedFileSize()`, `getUploadErrorMessage()`, `initUploadDirectory()`, `formatFileSize()`
-
----
-
-##  Flux de Traitement
-
----
-
 ##  Avantages de cette Architecture
 
 | Aspect | Avantage |
@@ -151,5 +85,3 @@ Le système implémente plusieurs couches de sécurité:
 Libre d'utilisation pour fins éducatives et commerciales.
 
 ---
-
-**Dernière mise à jour**: April 2026
